@@ -23,6 +23,9 @@
 
 
     <style>
+        #shareButton {
+            cursor: pointer;
+        }
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -117,6 +120,32 @@
     <hr>
     <h3>Sosyal Medyada Paylaş</h3>
     <div class="share-buttons">
+        
+       <img id="shareButton" src="https://www.svgrepo.com/show/103057/share.svg" alt="Paylaş">
+
+        <script>
+            document.getElementById('shareButton').addEventListener('click', async () => {
+                const shareData = {
+                    title: 'Boykot Çağrısı',
+                    text: 'Raflarda Boykot Ürün İstemiyoruz!',
+                    url: 'https://boykotcagrisi.github.io/boykot/boykot.html'
+                };
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share(shareData);
+                        console.log('Başarıyla paylaşıldı');
+                    } catch (err) {
+                        console.error('Paylaşım başarısız:', err);
+                    }
+                } else {
+                    // Geri dönüş: Paylaşım linkini yeni bir pencerede aç
+                    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+            });
+        </script>
+        
         <a href="https://twitter.com/intent/tweet?url=https://boykotcagrisi.github.io/boykot/boykot.html" target="_blank">
             <img src="https://www.mediamister.com/images/tools/twitter.svg" alt="Twitter">
         </a>
